@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:50 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/09 17:38:30 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/10 15:17:58 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@
 #include <fcntl.h>
 
 typedef struct s_vars{
-	int	fd_file;
 	int	pipe[2];
-	char *outfile;
+	char	*infile;
+	char	*outfile;
+	int	fd_file_for_read;
+	int	fd_file_for_write;
 }	t_vars;
 
 
-void	ft_herodoc(t_vars *vars);
+void	ft_herodoc(t_vars *vars, char **argv);
+void	open_infile(t_vars *vars, char **argv);
+void	open_outfile(t_vars *vars, char **argv);
+int		flag_here_doc(char *argv);
 
 #endif

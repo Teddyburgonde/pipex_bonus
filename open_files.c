@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/10 16:29:42 by tebandam         ###   ########.fr       */
+/*   Created: 2024/02/10 14:47:44 by tebandam          #+#    #+#             */
+/*   Updated: 2024/02/10 14:48:16 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-
-
-int	main(int argc, char **argv, char *envp[])
+void	open_infile(t_vars *vars, char **argv)
 {
-	if (flag_here_doc(argv[1]) == 1)
+	vars->infile = open(argv[1], O_RDONLY);
+	if (!vars->infile)
 	{
-		ft_pustr_fd("Error\nMissing the heredoc");
+		ft_pustr_fd("Error opening file\n");
 		exit(1);
 	}
-	//pipex.cmd_nmbs = argc - 3 - pipex.here_doc;
-	//pipex.pipe_nmbs = 2 * (pipex.cmd_nmbs - 1);
+}
+void	open_outfile(t_vars *vars, char **argv)
+{
+	vars->outfile = open(argv, O_WRONLY, O_CREAT, O_TRUNC, 0644);
+	if (!vars->outfile)
+	{
+		ft_pustr_fd("Error opening file\n");
+		exit(1);
+	}
 }

@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/10 16:29:42 by tebandam         ###   ########.fr       */
+/*   Created: 2024/02/10 15:16:30 by tebandam          #+#    #+#             */
+/*   Updated: 2024/02/10 15:17:46 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-
-
-int	main(int argc, char **argv, char *envp[])
+int	flag_here_doc(char *argv)
 {
-	if (flag_here_doc(argv[1]) == 1)
-	{
-		ft_pustr_fd("Error\nMissing the heredoc");
-		exit(1);
-	}
-	//pipex.cmd_nmbs = argc - 3 - pipex.here_doc;
-	//pipex.pipe_nmbs = 2 * (pipex.cmd_nmbs - 1);
+	if (argv && ft_strncmp(argv, "here_doc", 9) == 0)
+		return (0);
+	return (1);
 }

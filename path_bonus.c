@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/10 16:29:42 by tebandam         ###   ########.fr       */
+/*   Created: 2024/02/10 11:16:05 by tebandam          #+#    #+#             */
+/*   Updated: 2024/02/10 11:16:17 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-
-
-int	main(int argc, char **argv, char *envp[])
+char	**grep_path(char **envp)
 {
-	if (flag_here_doc(argv[1]) == 1)
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	while (envp[i] != NULL && ft_strncmp("PATH", envp[i], 4) != 0)
+		i++;
+	if (envp[i] != NULL)
 	{
-		ft_pustr_fd("Error\nMissing the heredoc");
-		exit(1);
+		tmp = ft_split(envp[i] + 5, ':');
+		return (tmp);
 	}
-	//pipex.cmd_nmbs = argc - 3 - pipex.here_doc;
-	//pipex.pipe_nmbs = 2 * (pipex.cmd_nmbs - 1);
+	return (NULL);
 }
