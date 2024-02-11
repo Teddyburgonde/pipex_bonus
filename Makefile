@@ -1,6 +1,6 @@
 NAME = pipex
 
-SRCS = main_bonus.c heredoc.c parsing_bonus.c path_bonus.c open_files.c
+SRCS = main_bonus.c heredoc.c parsing_bonus.c paths_bonus.c open_files.c
 
 OBJS=$(SRCS:.c=.o)
 
