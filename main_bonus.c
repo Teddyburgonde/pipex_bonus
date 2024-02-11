@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/11 20:01:10 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:42:56 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,24 @@ void	open_files(int argc, t_vars *vars, char **argv)
 
 void	child_process(t_vars *vars, char *envp[], int actual_cmd)
 {
-	if (actual_cmd == 0 )
-	{
-		if (dup2(vars->fd_infile, STDIN_FILENO) < 0)
-			perror("dup2");
-		if (dup2(vars->pipe_1[1], STDOUT_FILENO) < 0)
-			perror("dup2");
+	if (actual_cmd == 0){
+		dup2(vars->fd_infile, STDIN_FILENO);
+		dup2(vars->pipe[actual_cmd][1], STDOUT_FILENO);
 	}
 	else if (actual_cmd == vars->nb_cmd - 1){
-		if (dup2(vars->tmp_fd, STDIN_FILENO) < 0)
-			perror("dup2");
-		if (dup2(vars->fd_outfile, STDOUT_FILENO) < 0)
-			perror("dup2");
+		dup2(vars->pipe[actual_cmd - 1][0], STDIN_FILENO);
+		dup2(vars->fd_outfile, STDOUT_FILENO);
 	}
 	else{
-		if (dup2(vars->tmp_fd, STDIN_FILENO) < 0)
-			perror("dup2");
-		if (dup2(vars->pipe_1[1], STDOUT_FILENO) < 0)
-			perror("dup2");
+		dup2(vars->pipe[actual_cmd - 1][0], STDIN_FILENO);
+		dup2(vars->pipe[actual_cmd][1], STDOUT_FILENO);
 	}
-	if (vars->tmp_fd != -1)
-		close(vars->tmp_fd);
-	close(vars->pipe_1[0]);
-	close(vars->pipe_1[1]);
+
+	for (int i = 0; i < vars->nb_cmd - 1; i++)
+	{
+		close(vars->pipe[i][0]);
+		close(vars->pipe[i][1]);
+	}
 	close(vars->fd_infile);
 	close(vars->fd_outfile);
 	execve(vars->cmd[actual_cmd][0], vars->cmd[actual_cmd], envp);
@@ -110,12 +105,19 @@ int	main(int argc, char **argv, char *envp[])
 		i++;
 	}
 
-	vars.tmp_fd = -1;
+	vars.pipe = ft_calloc(vars.nb_cmd, sizeof(int *));
+
+	for (int j = 0; j < vars.nb_cmd - 1; j++){
+		vars.pipe[j] = ft_calloc(2, sizeof(int));
+		if (pipe(vars.pipe[j]) == -1){
+			perror("pipe");
+			exit(EXIT_FAILURE);
+		}
+	}
+
 	i = 0;
 	while (i < vars.nb_cmd){
-		if (pipe(vars.pipe_1) == -1)
-			return (-1);
-		
+
 		pid_t child = fork();
 		if (child == 0)
 		{
@@ -125,16 +127,14 @@ int	main(int argc, char **argv, char *envp[])
 			perror("fork");
 			exit(EXIT_FAILURE);
 		}
-		else{
-			if (vars.tmp_fd != -1)
-				close(vars.tmp_fd);
-			vars.tmp_fd = dup(vars.pipe_1[0]);
-			close(vars.pipe_1[0]);
-			close(vars.pipe_1[1]);
-		}
+
 		i++;
 	}
-	close(vars.tmp_fd);
+	for (int i = 0; i < vars.nb_cmd - 1; i++)
+	{
+		close(vars.pipe[i][0]);
+		close(vars.pipe[i][1]);
+	}
 	close(vars.fd_infile);
 	close(vars.fd_outfile);
 	

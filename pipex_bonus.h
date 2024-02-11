@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:50 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/11 19:50:22 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/11 20:28:54 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_vars{
 	int 	nb_cmd;
 	char	**path;
 	char	***cmd;
-	int		pipe_1[2];
-	int		tmp_fd;
+	int		**pipe;
+
 }	t_vars;
 
 char	**grep_path(char **envp);
