@@ -6,27 +6,29 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:47:44 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/11 17:42:09 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:57:02 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-// void	open_infile(t_vars *vars, char **argv)
-// {
-// 	vars->infile = open(argv[1], O_RDONLY);
-// 	if (!vars->infile)
-// 	{
-// 		ft_pustr_fd("Error opening file\n");
-// 		exit(1);
-// 	}
-// }
-// void	open_outfile(t_vars *vars, char **argv)
-// {
-// 	vars->outfile = open(argv, O_WRONLY, O_CREAT, O_TRUNC, 0644);
-// 	if (!vars->outfile)
-// 	{
-// 		ft_pustr_fd("Error opening file\n");
-// 		exit(1);
-// 	}
-// }
+void	open_files(int argc, t_vars *vars, char **argv)
+{
+	vars->fd_infile = open(argv[1], O_RDONLY);
+	vars->fd_outfile = open(argv[argc -1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (vars->fd_infile == -1 || vars->fd_outfile == -1)
+	{
+		perror("Error opening files");
+		exit(1);
+	}
+}
+
+void	check_infile(char **argv)
+{
+	if (access(argv[1], F_OK) != 0 || access(argv[1], R_OK) != 0
+		|| access(argv[1], W_OK) != 0)
+	{
+		ft_putstr_fd("Error\nPermission denied\n", 2);
+		exit(1);
+	}
+}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   paths.c                                            :+:      :+:    :+:   */
+/*   paths_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:29:52 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/11 17:40:21 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/12 14:55:11 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ char	**grep_path(char **envp)
 	{
 		tmp = ft_split(envp[i] + 5, ':');
 		return (tmp);
+	}
+	else
+	{
+		// close les fd
+		exit(1);
 	}
 	return (NULL);
 }
@@ -67,4 +72,21 @@ char	**find_the_accessible_path(char **path, char *command)
 		free(is_valid_cmd);
 	}
 	return (full_cmd);
+}
+
+void	fill_command_paths(t_vars *vars, char **argv)
+{
+	int	i;
+
+	i = 2;
+	while  (i < vars->nb_cmd + 2 )
+	{
+		vars->cmd[i - 2]  = find_the_accessible_path(vars->path, argv[i]);
+		if (vars->cmd[i - 2] == NULL)
+		{
+			//free de 2 a i vars.cmd
+			exit(1);
+		}
+		i++;
+	}
 }
