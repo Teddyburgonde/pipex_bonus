@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:47:44 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/12 14:57:02 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:53:22 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	open_files(int argc, t_vars *vars, char **argv)
 {
-	vars->fd_infile = open(argv[1], O_RDONLY);
+	if (!is_here_doc(argv[1]))
+		vars->fd_infile = open(argv[1], O_RDONLY);
 	vars->fd_outfile = open(argv[argc -1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (vars->fd_infile == -1 || vars->fd_outfile == -1)
 	{

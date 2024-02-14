@@ -6,17 +6,17 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 15:16:30 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/12 14:56:14 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:39:07 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-int	flag_here_doc(char *argv)
+int	is_here_doc(char *argv)
 {
-	if (argv && ft_strncmp(argv, "here_doc", 9) == 0)
-		return (0);
-	return (1);
+	if (argv && ft_strncmp(argv, "here_doc", 8) == 0)
+		return (1);
+	return (0);
 }
 
 void	ft_parsing(int argc, char *envp[])

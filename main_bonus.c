@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/12 14:52:32 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:30:50 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@ int	main(int argc, char **argv, char *envp[])
 
 	i = 2;
 	ft_parsing(argc, envp);
-	check_infile(argv);
+	if (is_here_doc(argv[1]))	
+		ft_heredoc(&vars, argv);
+	else
+		check_infile(argv);
 	open_files(argc, &vars, argv);
-	vars.nb_cmd = argc -3;
+	if (is_here_doc(argv[1]))	
+		vars.nb_cmd = argc -4;
+	else
+		vars.nb_cmd = argc -3;
 	vars.path = grep_path(envp);
 	vars.cmd = ft_calloc(vars.nb_cmd, sizeof(char **));
 	fill_command_paths(&vars, argv);
@@ -32,6 +38,6 @@ int	main(int argc, char **argv, char *envp[])
 	close(vars.fd_infile);
 	close(vars.fd_outfile);
 	while (waitpid(-1, NULL, 0) != -1)
-		;
+		continue;
 	// ft_full_free(&vars);
 }

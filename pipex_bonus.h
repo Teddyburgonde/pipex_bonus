@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:50 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/12 14:54:53 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:30:50 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 # include "./libft/includes/libftprintf.h"
 # include "./libft/includes/libft.h"
+# include "./libft/includes/get_next_line.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <sys/types.h>
@@ -31,12 +32,14 @@ typedef struct s_vars{
 	char	***cmd;
 	int		pipe_1[2];
 	int		tmp_fd;
+	int		hd_w;
+	int		hd_r;
 }	t_vars;
 
 char	**grep_path(char **envp);
 
-// void	ft_herodoc(t_vars *vars, char **argv);
-// int		flag_here_doc(char *argv);
+void	ft_heredoc(t_vars *vars, char **argv);
+int		is_here_doc(char *argv);
 char	**find_the_accessible_path(char **path, char *command);
 void	open_files(int argc, t_vars *vars, char **argv);
 void	check_infile(char **argv);
