@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:17:44 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/15 15:48:02 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/15 16:11:55 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 void	ft_heredoc(t_vars *vars, char **argv)
 {
 	char *tab;
-	// char *limiter;
-	
-	// limiter = argv[2];	
+
 	tab = NULL;
-	// if(!tab)
-	// 	return ;
 	vars->hd_w = open("TMP_HEREDOC", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (vars->hd_w == -1)
 	{
