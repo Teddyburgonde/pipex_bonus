@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:29:52 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/14 18:45:04 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:37:46 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,11 @@ void	fill_command_paths(t_vars *vars, char **argv)
 	int	configuration;
 	int	i;
 	
-	i = 0;
-	
 	if (is_here_doc(argv[1]))	
 		configuration = 3;
 	else
 		configuration = 2;
+	i = configuration;
 	while  (i < vars->nb_cmd + configuration)
 	{
 		vars->cmd[i - configuration]  = find_the_accessible_path(vars->path, argv[i]);
