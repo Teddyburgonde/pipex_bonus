@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/15 17:15:42 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:21:48 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,4 @@ int	main(int argc, char **argv, char *envp[])
 	close(vars.fd_outfile);
 	while (waitpid(-1, NULL, 0) != -1)
 		continue;
-	// ft_full_free(&vars);
 }

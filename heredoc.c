@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:17:44 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/15 16:11:55 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:38:54 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_heredoc(t_vars *vars, char **argv)
 	}
 	while(ft_strncmp(tab, argv[2], ft_strlen(argv[2])))
 	{
-		write(1, "> ", 1);
+		write(1, "> ", 2);
 		free(tab);
 		tab = get_next_line(STDIN_FILENO);
 		if (!tab)
