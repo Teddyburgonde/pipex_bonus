@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 11:17:44 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/18 02:56:51 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 04:03:48 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_heredoc(t_vars *vars, char **argv)
 {
-	char *tmp;
-	char *tab;
-	int	i;
+	char	*tmp;
+	char	*tab;
+	int		i;
 
 	i = 0;
 	tab = NULL;
@@ -41,7 +41,7 @@ void	ft_heredoc(t_vars *vars, char **argv)
 		ft_putstr_fd("Error\n No limiter for heredoc", 2);
 		exit(1);
 	}
-	while(ft_strncmp(tab, tmp, ft_strlen(tmp)))
+	while (ft_strncmp(tab, tmp, ft_strlen(tmp)))
 	{
 		ft_putstr_fd(tab, vars->hd_w);
 		free(tab);

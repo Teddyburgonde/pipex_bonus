@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:29:52 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/15 16:23:31 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 04:06:24 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ char	**grep_path(char **envp)
 		tmp = ft_split(envp[i] + 5, ':');
 		return (tmp);
 	}
-	else
-	{
-		// close les fd
-		exit(1);
-	}
 	return (NULL);
 }
 
@@ -45,11 +40,13 @@ void	update_full_cmd(char ***full_cmd, char *is_valid_cmd)
 char	**find_the_accessible_path(char **path, char *command)
 {
 	char	**full_cmd;
-	int 	i = 0;
-	int		arr_len = 0;
+	int		i;
+	int		arr_len;
 	char	*bin_path;
 	char	*is_valid_cmd;
-	
+
+	i = 0;
+	arr_len = 0;
 	full_cmd = ft_split(command, ' ');
 	if (full_cmd == NULL)
 	{
@@ -78,15 +75,15 @@ void	fill_command_paths(t_vars *vars, char **argv)
 {
 	int	configuration;
 	int	i;
-	
-	if (is_here_doc(argv[1]))	
+
+	if (is_here_doc(argv[1]))
 		configuration = 3;
 	else
 		configuration = 2;
 	i = configuration;
-	while  (i < vars->nb_cmd + configuration)
+	while (i < vars->nb_cmd + configuration)
 	{
-		vars->cmd[i - configuration]  = find_the_accessible_path(vars->path, argv[i]);
+		vars->cmd[i - configuration] = find_the_accessible_path(vars->path, argv[i]);
 		if (vars->cmd[i - configuration] == NULL)
 		{
 			exit(1);

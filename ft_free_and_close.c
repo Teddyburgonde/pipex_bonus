@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:52:54 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/17 15:06:23 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 03:24:51 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_free(char **tab)
 	}
 	free(tab);
 }
+
 void	ft_free_tab_3d(t_vars *vars)
 {
 	int	i;
@@ -43,6 +44,7 @@ void	ft_free_tab_3d(t_vars *vars)
 	}
 	free(vars->cmd);
 }
+
 void	ft_close_fd(t_vars *vars)
 {
 	close(vars->tmp_fd);

@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:17:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/14 16:51:01 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 04:48:42 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ void	fork_processes(t_vars *vars, char *envp[])
 		i++;
 	}
 }
+
 void	child_process(t_vars *vars, char *envp[], int actual_cmd)
 {
-	if (actual_cmd == 0 )
+	if (actual_cmd == 0)
 	{
 		if (dup2(vars->fd_infile, STDIN_FILENO) < 0)
 			perror("dup2");
@@ -71,6 +72,6 @@ void	child_process(t_vars *vars, char *envp[], int actual_cmd)
 	close(vars->fd_outfile);
 	execve(vars->cmd[actual_cmd][0], vars->cmd[actual_cmd], envp);
 	perror("Execve");
-	//free si execve foire
+	ft_free_tab_3d(vars);
 	exit(1);
 }
