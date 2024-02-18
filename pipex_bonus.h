@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:50 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/18 04:58:06 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 16:58:29 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ size_t	ft_array_len(char **arr);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_free_tab_3d(t_vars *vars);
 void	ft_close_fd(t_vars *vars);
+void	open_fd_infile(t_vars *vars);
+void	verif_tab(char *tab);
+void	open_hd_w(t_vars *vars);
 
 #endif

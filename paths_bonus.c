@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:29:52 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/18 04:58:19 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 15:33:21 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,26 @@ void	update_full_cmd(char ***full_cmd, char *is_valid_cmd)
 	free(is_valid_cmd);
 }
 
+void	build_path(char **path, char **bin_path,
+	char **is_valid_cmd, char **full_cmd)
+{
+	int	i;
+
+	i = 0;
+	while (path[i])
+	{
+		*bin_path = ft_strjoin(path[i++], "/");
+		*is_valid_cmd = ft_strjoin(*bin_path, full_cmd[0]);
+		free(*bin_path);
+		if (access(*is_valid_cmd, X_OK) == 0)
+		{
+			update_full_cmd(&full_cmd, *is_valid_cmd);
+			break ;
+		}
+		free(*is_valid_cmd);
+	}
+}
+
 char	**find_the_accessible_path(char **path, char *command)
 {
 	char	**full_cmd;
@@ -56,18 +76,7 @@ char	**find_the_accessible_path(char **path, char *command)
 	arr_len = ft_array_len(full_cmd);
 	if (access(full_cmd[0], X_OK) == 0)
 		return (full_cmd);
-	while (path[i])
-	{
-		bin_path = ft_strjoin(path[i++], "/");
-		is_valid_cmd = ft_strjoin(bin_path, full_cmd[0]);
-		free(bin_path);
-		if (access(is_valid_cmd, X_OK) == 0)
-		{
-			update_full_cmd(&full_cmd, is_valid_cmd);
-			break ;
-		}
-		free(is_valid_cmd);
-	}
+	build_path(path, &bin_path, &is_valid_cmd, full_cmd);
 	return (full_cmd);
 }
 
@@ -83,11 +92,10 @@ void	fill_command_paths(t_vars *vars, char **argv)
 	i = configuration;
 	while (i < vars->nb_cmd + configuration)
 	{
-		vars->cmd[i - configuration] = find_the_accessible_path(vars->path, argv[i]);
+		vars->cmd[i - configuration] = find_the_accessible_path(vars->path,
+				argv[i]);
 		if (vars->cmd[i - configuration] == NULL)
-		{
 			exit(1);
-		}
 		i++;
 	}
 }
