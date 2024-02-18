@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:17:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/18 04:48:42 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 05:06:13 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	child_process(t_vars *vars, char *envp[], int actual_cmd)
 	close(vars->fd_outfile);
 	execve(vars->cmd[actual_cmd][0], vars->cmd[actual_cmd], envp);
 	perror("Execve");
+	// ici free
+	ft_free(vars->path);
 	ft_free_tab_3d(vars);
 	exit(1);
 }
