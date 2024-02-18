@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_ptr_hexa.c                                   :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 11:53:02 by tebandam          #+#    #+#             */
-/*   Updated: 2023/11/09 18:26:38 by tebandam         ###   ########.fr       */
+/*   Created: 2023/10/30 12:22:41 by tebandam          #+#    #+#             */
+/*   Updated: 2023/11/09 11:49:20 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "pipex_bonus.h"
 
-int	print_ptr_hexa(unsigned long nb)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*lowercase;
-	int		print_length;
+	void		*ptr;
+	long int	size_alloc;
 
-	print_length = 0;
-	lowercase = "0123456789abcdef";
-	if (!nb)
-	{
-		write (1, "(nil)", 5);
-		return (5);
-	}
-	if (nb >= 16)
-		print_length = print_ptr_hexa(nb / 16);
-	if (print_length == 0)
-		print_length += write(1, "0x", 2);
-	print_length += 1;
-	write(1, &lowercase[nb % 16], 1);
-	return (print_length);
+	size_alloc = nmemb * size;
+	if (size_alloc < 0 || ((int)nmemb < 0 && (int)size < 0))
+		return (NULL);
+	ptr = malloc(nmemb * size);
+	if (ptr)
+		ft_memset(ptr, '\0', nmemb * size);
+	return (ptr);
 }

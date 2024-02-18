@@ -1,40 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_free_and_close.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 12:24:37 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/08 06:06:14 by tebandam         ###   ########.fr       */
+/*   Created: 2024/02/17 14:52:54 by tebandam          #+#    #+#             */
+/*   Updated: 2024/02/17 15:06:23 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex_bonus.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+void	ft_free(char **tab)
 {
-	char	*tab;
-	int		i;
-	int		j;
+	int	i;
 
-	if (!s1 || !s2)
-		return (NULL);
 	i = 0;
-	j = 0;
-	tab = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!tab)
-		return (NULL);
-	while (s1[i])
+	while (tab[i])
 	{
-		tab[i] = s1[i];
+		free(tab[i]);
 		i++;
 	}
-	while (s2[j])
+	free(tab);
+}
+void	ft_free_tab_3d(t_vars *vars)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < vars->nb_cmd)
 	{
-		tab[i + j] = s2[j];
-		j++;
+		j = 0;
+		while (vars->cmd[i][j])
+		{
+			free(vars->cmd[i][j]);
+			j++;
+		}
+		free(vars->cmd[i]);
+		i++;
 	}
-	tab[i + j] = '\0';
-	return (tab);
+	free(vars->cmd);
+}
+void	ft_close_fd(t_vars *vars)
+{
+	close(vars->tmp_fd);
+	close(vars->fd_infile);
+	close(vars->fd_outfile);
 }

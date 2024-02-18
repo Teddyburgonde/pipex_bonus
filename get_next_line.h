@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 10:22:21 by tebandam          #+#    #+#             */
-/*   Updated: 2023/11/10 10:38:11 by tebandam         ###   ########.fr       */
+/*   Created: 2023/11/20 17:40:15 by tebandam          #+#    #+#             */
+/*   Updated: 2023/11/22 18:39:28 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H 
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 # include <unistd.h>
-# include <stdarg.h>
 # include <stdlib.h>
 
-int				ft_printf(char *str, ...);
-int				ft_putstr(char *str);
-int				ft_putchar(char c);
-int				ft_print_hexa_lowercase(unsigned int nb);
-int				ft_print_hexa_uppercase(unsigned int nb);
-int				print_ptr_hexa(unsigned long nb);
-int				ft_unsigned_int_putnbr(unsigned int n);
-int				ft_putnbr(int nb);
+char	*get_next_line(int fd);
+char	*ft_substr(char const *s, unsigned int start, int len);
+char	*ft_strjoin_mod(char *s1, char *s2);
+char	*ft_strchr(const char *s, int c);
+int		ft_strlen(const char *str);
 
-#endif
+#endif 

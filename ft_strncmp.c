@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 18:00:24 by tebandam          #+#    #+#             */
-/*   Updated: 2023/11/09 18:33:19 by tebandam         ###   ########.fr       */
+/*   Created: 2023/10/30 12:19:01 by tebandam          #+#    #+#             */
+/*   Updated: 2024/02/17 15:13:13 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "pipex_bonus.h"
 
-int	ft_putstr(char *str)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	size_t	i;
 
-	if (!str)
-	{
-		write (1, "(null)", 6);
-		return (6);
-	}
 	i = 0;
-	while (str[i])
+	if (!s1 || !s2)
+		return (1);
+	while (i < n && (s1[i] != '\0' || s2[i] != '\0'))
 	{
-		write (1, &str[i], 1);
+		if (s1[i] != s2[i])
+			return (((unsigned char)s1[i] - (unsigned char)s2[i]));
 		i++;
 	}
-	return (i);
+	return (0);
 }

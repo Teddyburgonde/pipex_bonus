@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hexa_lowercase.c                          :+:      :+:    :+:   */
+/*   ft_array_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 18:18:05 by tebandam          #+#    #+#             */
-/*   Updated: 2023/11/10 10:46:07 by tebandam         ###   ########.fr       */
+/*   Created: 2024/02/08 06:06:34 by tebandam          #+#    #+#             */
+/*   Updated: 2024/02/08 06:07:01 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "pipex_bonus.h"
 
-int	ft_print_hexa_lowercase(unsigned int nb)
+size_t	ft_array_len(char **arr)
 {
-	int		print_length;
-	char	*lowercase;
+	size_t	i;
 
-	lowercase = "0123456789abcdef";
-	print_length = 0;
-	if (nb >= 16)
-		print_length = ft_print_hexa_lowercase(nb / 16);
-	print_length += 1;
-	write(1, &lowercase[nb % 16], 1);
-	return (print_length);
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }

@@ -6,32 +6,11 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/15 17:21:48 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:06:32 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-
-void	ft_free_tab_3d(t_vars *vars)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < vars->nb_cmd)
-	{
-		j = 0;
-		while (vars->cmd[i][j])
-		{
-			free(vars->cmd[i][j]);
-			j++;
-		}
-		free(vars->cmd[i]);
-		i++;
-	}
-	free(vars->cmd);
-}
-
 
 int	main(int argc, char **argv, char *envp[])
 {
@@ -57,9 +36,7 @@ int	main(int argc, char **argv, char *envp[])
 	fork_processes(&vars, envp);
 	ft_free(vars.path);
 	ft_free_tab_3d(&vars);
-	close(vars.tmp_fd);
-	close(vars.fd_infile);
-	close(vars.fd_outfile);
+	ft_close_fd(&vars);
 	while (waitpid(-1, NULL, 0) != -1)
 		continue;
 }

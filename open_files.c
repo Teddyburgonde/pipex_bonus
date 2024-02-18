@@ -20,7 +20,7 @@ void	open_files(int argc, t_vars *vars, char **argv)
 		vars->fd_outfile = open(argv[argc -1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 	else
-		vars->fd_outfile = open(argv[argc -1], O_WRONLY | O_CREAT | O_APPEND, 0644); //TODO comprendre cette ligne
+		vars->fd_outfile = open(argv[argc -1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (vars->fd_infile == -1 || vars->fd_outfile == -1)
 	{
 		perror("Error opening files");

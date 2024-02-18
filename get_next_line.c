@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 18:20:54 by tebandam          #+#    #+#             */
-/*   Updated: 2023/11/22 08:20:48 by tebandam         ###   ########.fr       */
+/*   Created: 2023/11/20 17:27:00 by tebandam          #+#    #+#             */
+/*   Updated: 2024/02/18 00:53:13 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*read_loop(char *buf, char *stock, int *len, int fd)
 		return (NULL);
 	}
 	buf[*len] = 0;
-	stock = ft_strjoin(stock, buf);
+	stock = ft_strjoin_mod(stock, buf);
 	free(buf);
 	buf = NULL;
 	return (stock);
@@ -42,7 +42,7 @@ static char	*read_line(int fd, char *stock)
 		len = read(fd, buf, BUFFER_SIZE);
 		buf[len] = 0;
 		if (len > 0)
-			stock = ft_strjoin(stock, buf);
+			stock = ft_strjoin_mod(stock, buf);
 		free(buf);
 		buf = NULL;
 	}
@@ -100,13 +100,13 @@ static char	*extract_surplus_line(char *stock)
 
 char	*get_next_line(int fd)
 {
-	static char	*stock[1024];
+	static char	*stock = NULL;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	stock[fd] = read_line(fd, stock[fd]);
-	line = extract_line(stock[fd]);
-	stock[fd] = extract_surplus_line(stock[fd]);
+	stock = read_line(fd, stock);
+	line = extract_line(stock);
+	stock = extract_surplus_line(stock);
 	return (line);
 }
