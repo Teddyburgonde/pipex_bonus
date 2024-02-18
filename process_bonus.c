@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 11:17:22 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/18 05:06:13 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 14:39:46 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	fork_processes(t_vars *vars, char *envp[])
 	}
 }
 
-void	child_process(t_vars *vars, char *envp[], int actual_cmd)
+void	ft_flow_redirection(t_vars *vars, int actual_cmd)
 {
 	if (actual_cmd == 0)
 	{
@@ -64,6 +64,11 @@ void	child_process(t_vars *vars, char *envp[], int actual_cmd)
 		if (dup2(vars->pipe_1[1], STDOUT_FILENO) < 0)
 			perror("dup2");
 	}
+}
+
+void	child_process(t_vars *vars, char *envp[], int actual_cmd)
+{
+	ft_flow_redirection(vars, actual_cmd);
 	if (vars->tmp_fd != -1)
 		close(vars->tmp_fd);
 	close(vars->pipe_1[0]);
@@ -72,7 +77,6 @@ void	child_process(t_vars *vars, char *envp[], int actual_cmd)
 	close(vars->fd_outfile);
 	execve(vars->cmd[actual_cmd][0], vars->cmd[actual_cmd], envp);
 	perror("Execve");
-	// ici free
 	ft_free(vars->path);
 	ft_free_tab_3d(vars);
 	exit(1);
