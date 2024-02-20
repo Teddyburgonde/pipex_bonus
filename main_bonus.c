@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/20 14:27:51 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 15:04:28 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	main(int argc, char **argv, char *envp[])
 	vars.cmd = ft_calloc(vars.nb_cmd + 1, sizeof(char **));
 	if (fill_command_paths(&vars, argv) == -1)
 	{
+		close(vars.fd_infile);
+		close(vars.fd_outfile);
 		ft_free(vars.path);
 		ft_free_tab_3d(&vars);
 		exit(1);
