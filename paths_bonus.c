@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:29:52 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/20 14:18:41 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 16:20:18 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	build_path(char **path, char **bin_path,
 		free(*is_valid_cmd);
 	}
 }
-
 char	**find_the_accessible_path(char **path, char *command, t_vars *vars)
 {
 	int		i;
@@ -69,10 +68,13 @@ char	**find_the_accessible_path(char **path, char *command, t_vars *vars)
 	vars->full_cmd = ft_split(command, ' ');
 	if (vars->full_cmd == NULL || vars->full_cmd[0] == NULL || vars->full_cmd[0][0] == '\0')
 	{
+		ft_putstr_fd("Error\nCmd invalid", 2);
 		ft_free_tab_3d(vars);
 		ft_free(vars->path);
 		ft_free(vars->full_cmd);
-		return (NULL);
+		close(vars->fd_infile);
+		close(vars->fd_outfile);
+		exit(1);
 	}
 	arr_len = ft_array_len(vars->full_cmd);
 	if (access(vars->full_cmd[0], X_OK) == 0)
