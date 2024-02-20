@@ -6,11 +6,23 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/20 15:04:28 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:13:15 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
+
+void	verif_fill_command_paths(t_vars *vars, char **argv)
+{
+	if (fill_command_paths(vars, argv) == -1)
+	{
+		close(vars->fd_infile);
+		close(vars->fd_outfile);
+		ft_free(vars->path);
+		ft_free_tab_3d(vars);
+		exit(1);
+	}
+}
 
 int	main(int argc, char **argv, char *envp[])
 {
@@ -30,14 +42,7 @@ int	main(int argc, char **argv, char *envp[])
 		vars.nb_cmd = argc -3;
 	vars.path = grep_path(envp);
 	vars.cmd = ft_calloc(vars.nb_cmd + 1, sizeof(char **));
-	if (fill_command_paths(&vars, argv) == -1)
-	{
-		close(vars.fd_infile);
-		close(vars.fd_outfile);
-		ft_free(vars.path);
-		ft_free_tab_3d(&vars);
-		exit(1);
-	}
+	verif_fill_command_paths(&vars, argv);
 	vars.tmp_fd = -1;
 	i = 0;
 	fork_processes(&vars, envp);
