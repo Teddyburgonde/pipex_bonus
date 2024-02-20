@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:52:54 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/20 17:03:18 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:25:46 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,16 @@ void	ft_close_fd(t_vars *vars)
 	close(vars->tmp_fd);
 	close(vars->fd_infile);
 	close(vars->fd_outfile);
+}
+
+void	verif_fill_command_paths(t_vars *vars, char **argv)
+{
+	if (fill_command_paths(vars, argv) == -1)
+	{
+		close(vars->fd_infile);
+		close(vars->fd_outfile);
+		ft_free(vars->path);
+		ft_free_tab_3d(vars);
+		exit(1);
+	}
 }

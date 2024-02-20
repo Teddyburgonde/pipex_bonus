@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:50 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/20 17:03:38 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:14:56 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void	verif_tab(char *tab);
 void	open_hd_w(t_vars *vars);
 char	*ft_strdup(const char *s);
 char	**find_the_accessible_path(char **path, char *command, t_vars *vars);
+void	verif_fill_command_paths(t_vars *vars, char **argv);
 #endif
