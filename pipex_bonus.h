@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:50 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/18 17:09:18 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 13:09:59 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_vars{
 	int		heredoc;
 	char	**path;
 	char	***cmd;
+	char	**full_cmd;
 	int		pipe_1[2];
 	int		tmp_fd;
 	int		hd_w;
@@ -38,13 +39,13 @@ typedef struct s_vars{
 char	**grep_path(char **envp);
 void	ft_heredoc(t_vars *vars, char **argv);
 int		is_here_doc(char *argv);
-char	**find_the_accessible_path(char **path, char *command);
 void	open_files(int argc, t_vars *vars, char **argv);
 void	check_infile(char **argv);
 void	child_process(t_vars *vars, char *envp[], int actual_cmd);
 void	fork_processes(t_vars *vars, char *envp[]);
 void	ft_parsing(int argc, char *envp[]);
-void	fill_command_paths(t_vars *vars, char **argv);
+//void	fill_command_paths(t_vars *vars, char **argv);
+int	fill_command_paths(t_vars *vars, char **argv);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_free(char **tab);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -62,5 +63,5 @@ void	open_fd_infile(t_vars *vars);
 void	verif_tab(char *tab);
 void	open_hd_w(t_vars *vars);
 char	*ft_strdup(const char *s);
-
+char	**find_the_accessible_path(char **path, char *command, t_vars *vars);
 #endif

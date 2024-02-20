@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:11:36 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/20 11:09:59 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:27:51 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,13 @@ int	main(int argc, char **argv, char *envp[])
 	else
 		vars.nb_cmd = argc -3;
 	vars.path = grep_path(envp);
-	vars.cmd = ft_calloc(vars.nb_cmd, sizeof(char ***));
-	fill_command_paths(&vars, argv);
+	vars.cmd = ft_calloc(vars.nb_cmd + 1, sizeof(char **));
+	if (fill_command_paths(&vars, argv) == -1)
+	{
+		ft_free(vars.path);
+		ft_free_tab_3d(&vars);
+		exit(1);
+	}
 	vars.tmp_fd = -1;
 	i = 0;
 	fork_processes(&vars, envp);

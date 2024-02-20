@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:52:54 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/18 03:24:51 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 14:22:32 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 void	ft_free(char **tab)
 {
-	int	i;
+	char	**tmp;
 
-	i = 0;
-	while (tab && tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
+	tmp = tab;
+	if (!tab)
+		return ;
+	while (*tmp)
+		free(*(tmp++));
 	free(tab);
 }
 
@@ -31,7 +30,9 @@ void	ft_free_tab_3d(t_vars *vars)
 	int	j;
 
 	i = 0;
-	while (i < vars->nb_cmd)
+	if (!vars->cmd)
+		return;
+	while (vars->cmd[i])
 	{
 		j = 0;
 		while (vars->cmd[i][j])
