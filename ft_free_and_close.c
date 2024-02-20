@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:52:54 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/20 14:22:32 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:03:18 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_free_tab_3d(t_vars *vars)
 
 	i = 0;
 	if (!vars->cmd)
-		return;
+		return ;
 	while (vars->cmd[i])
 	{
 		j = 0;

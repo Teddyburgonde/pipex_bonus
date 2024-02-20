@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:50 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/20 13:09:59 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:03:38 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	check_infile(char **argv);
 void	child_process(t_vars *vars, char *envp[], int actual_cmd);
 void	fork_processes(t_vars *vars, char *envp[]);
 void	ft_parsing(int argc, char *envp[]);
-//void	fill_command_paths(t_vars *vars, char **argv);
-int	fill_command_paths(t_vars *vars, char **argv);
+int		fill_command_paths(t_vars *vars, char **argv);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_free(char **tab);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
