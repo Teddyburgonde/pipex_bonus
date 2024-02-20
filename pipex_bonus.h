@@ -6,7 +6,7 @@
 /*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:50 by tebandam          #+#    #+#             */
-/*   Updated: 2024/02/18 16:58:29 by tebandam         ###   ########.fr       */
+/*   Updated: 2024/02/18 17:09:18 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	ft_close_fd(t_vars *vars);
 void	open_fd_infile(t_vars *vars);
 void	verif_tab(char *tab);
 void	open_hd_w(t_vars *vars);
+char	*ft_strdup(const char *s);
 
 #endif

@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tebandam <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tebandam <tebandam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 12:25:28 by tebandam          #+#    #+#             */
-/*   Updated: 2023/11/09 11:48:35 by tebandam         ###   ########.fr       */
+/*   Created: 2023/12/24 11:08:52 by tebandam          #+#    #+#             */
+/*   Updated: 2024/02/19 15:05:43 by tebandam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
 
-static int	ft_separator(char c, char charset)
-{
-	if (c == charset)
-		return (1);
-	return (0);
-}
-
-static int	wd_count_words(const char *str, char charset)
+int	wd_count_word(char const *str, char separator)
 {
 	int	i;
 	int	count;
@@ -28,61 +21,75 @@ static int	wd_count_words(const char *str, char charset)
 	count = 0;
 	while (str[i])
 	{
-		if (!ft_separator(str[i], charset))
-		{
+		while (str[i] && str[i] == separator)
+			i++;
+		if (str[i])
 			count++;
-			while (str[i] && !ft_separator(str[i], charset))
-				i++;
-		}
-		i++;
+		while (str[i] && str[i] != separator)
+			i++;
 	}
 	return (count);
 }
 
-static char	*ft_strdup_edit(const char *str, char charset)
+char	*ft_substr_split(char const *s, unsigned int start, int len)
 {
 	int		i;
-	char	*word;
+	int		j;
+	char	*tab;
 
+	tab = NULL;
+	if (!s)
+		return (NULL);
+	if ((unsigned int)ft_strlen(s) < start)
+		return (NULL);
+	j = ft_strlen(s + start);
+	if (j < len)
+		len = j;
+	tab = malloc(sizeof(char) * (len + 1));
+	if (!tab)
+		return (NULL);
 	i = 0;
-	while (str[i] && !ft_separator(str[i], charset))
-		i++;
-	word = malloc(sizeof(char) * (i + 1));
-	i = 0;
-	while (str[i] && !ft_separator(str[i], charset))
+	while (i < len)
 	{
-		word[i] = str[i];
+		tab[i] = s[start + i];
 		i++;
 	}
-	word[i] = '\0';
-	return (word);
+	tab[i] = '\0';
+	return (tab);
 }
 
-char	**ft_split(char const *s, char c)
+static void	initialize_variables(int *i, int *j, int *k)
+{
+	*i = 0;
+	*j = 0;
+	*k = 0;
+}
+
+char	**ft_split(char const *str, char separator)
 {
 	char	**tab;
 	int		i;
 	int		j;
+	int		k;
 
-	if (!s)
-		return (NULL);
-	i = 0;
-	j = 0;
-	tab = malloc(sizeof(char *) * (wd_count_words(s, c) + 1));
+	initialize_variables(&i, &j, &k);
+	tab = ft_calloc(wd_count_word(str, separator) + 1, sizeof(char *));
 	if (!tab)
 		return (NULL);
-	while (s[i])
+	while (str[i])
 	{
-		while (s[i] && ft_separator(s[i], c))
+		while (str[i] && str[i] == separator)
 			i++;
-		if (s[i] && !ft_separator(s[i], c))
-		{
-			tab[j] = ft_strdup_edit(&s[i], c);
-			j++;
-			while (s[i] && !ft_separator(s[i], c))
-				i++;
-		}
+		k = i;
+		while (str[k] && str[k] != separator)
+			k++;
+		if (k - i != 0)
+			tab[j] = ft_substr_split(str, i, k - i);
+		i = k;
+		while (str[i] && str[i] == separator)
+			i++;
+		j++;
 	}
-	tab[j] = 0;
+	tab[wd_count_word(str, separator)] = NULL;
 	return (tab);
 }
